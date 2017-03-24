@@ -1,4 +1,5 @@
 import java.util.Random;
+import java.util.jar.Attributes;
 
 public class KMeans {
 
@@ -30,12 +31,14 @@ public class KMeans {
 	 * @param numCols The number of columns
 	 * @param type The specific characteristic/distance scheme being used.
 	 */
-	public KMeans(int numClasses, int numDims, int numRows, int numCols, KMeansType type) {
+	public KMeans(int numClasses, int numRows, int numCols, KMeansType type) {
 		this.type = type;
 		K = numClasses;
 		means = new Characteristic[K];
 		pixelProperties = new Characteristic[numRows][numCols];
-		numDimensions = numDims;
+		if (type.equals(KMeansType.RGB_Distance) || type.equals(KMeansType.RGBSpatialDistance))
+			numDimensions = 3;
+
 	}
 
 	/**
@@ -58,6 +61,7 @@ public class KMeans {
 	private void randomizeMeans() {
 		rand.setSeed(1);
 		for (int k = 0; k < K; k++) {
+			means[k] = new Characteristic(numDimensions);
 			for (int i = 0; i < numDimensions; i++) {
 				means[k].setVal(i, rand.nextDouble());
 			}
@@ -71,6 +75,8 @@ public class KMeans {
 	private void recomputeMeans() {
 		int[] classCardinality = new int[K];
 		Characteristic[] sums = new Characteristic[K];
+		for (int i = 0; i < sums.length; i++)
+			sums[i] = new Characteristic(numDimensions);
 		for (Characteristic[] pArray : pixelProperties) {
 			for (Characteristic pixel : pArray) {
 				sums[pixel.getClassNumber()].addValues(pixel);
@@ -104,21 +110,26 @@ public class KMeans {
 	 */
 	private boolean determineClass() {
 		boolean classChange = false;
-		int closestClass = 0;
-		double minDistance = 1;
+		int closestClass = -1;
+		double minDistance;
 		double curDistance;
-		for (Characteristic[] pArray : pixelProperties) {
-			for (Characteristic pixel : pArray) {
+
+		for (int r = 0; r < pixelProperties.length; r++) {
+			for (int c = 0; c < pixelProperties[0].length; c++) {
+				minDistance = Double.MAX_VALUE;
 				for (int i = 0; i < means.length; i++) {
-					curDistance = pixel.UDistance(means[i]);
+					curDistance = pixelProperties[r][c].Distance(r, c, pixelProperties.length,
+							pixelProperties[0].length, means[i], type);
 					if (curDistance < minDistance) {
 						minDistance = curDistance;
 						closestClass = i;
 					}
 				}
-				if (pixel.getClassNumber() != closestClass)
+				if (pixelProperties[r][c].getClassNumber() != closestClass)
 					classChange = true;
-				pixel.setClassNumber(closestClass);
+				if (closestClass == -1)
+					System.out.println("Error");
+				pixelProperties[r][c].setClassNumber(closestClass);
 			}
 		}
 		return classChange;

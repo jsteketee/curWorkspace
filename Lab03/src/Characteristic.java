@@ -73,18 +73,34 @@ public class Characteristic {
 	 * Calculates the Normalized Euclidean distance between the two
 	 * characteristics. ie. SquareRoot((x1-y1)^2+(x2-y2)^2...(xn-yn)^2)
 	 * 
-	 * @param c2 The characteristic of the pixel being compared with this
-	 *            Characteristic.
+	 * @param c2 The pixel being compared to this.
 	 * @return the normalized distance.
 	 */
-	public double UDistance(Characteristic c2) {
-		double maxDistance = Math.sqrt(255 * 255 * this.attributes.length);
+	private double RGBDistance(Characteristic c2) {
+		double maxDistance = this.attributes.length;
 		double difference;
 		double sumOfSquares = 0;
 		for (int i = 0; i < this.attributes.length; i++) {
 			difference = (this.attributes[i] - c2.attributes[i]);
 			sumOfSquares += difference * difference;
 		}
-		return Math.sqrt(sumOfSquares) / maxDistance;
+		return sumOfSquares / maxDistance;
 	}
+
+	private double RGBSpatialDistance(Characteristic c2, int r, int c, int maxr, int maxc) {
+		double RGBDistance = RGBDistance(c2);
+		double NormSpatialDistance = ()
+		
+		
+	}
+
+	public double Distance(int r, int c, int maxr, int maxc, Characteristic c2, KMeansType type) {
+		if (type.equals(KMeansType.RGB_Distance))
+			return RGBDistance(c2);
+		if (type.equals(KMeansType.RGBSpatialDistance))
+			return RGBSpatialDistance(c2, maxr, maxc);
+		else
+			return 0;
+	}
+
 }

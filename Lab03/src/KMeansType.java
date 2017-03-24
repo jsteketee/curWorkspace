@@ -1,4 +1,4 @@
 
 public enum KMeansType {
-	RGBEuclidianDistance, Intensity, TextureAndIntensity;
+	RGB_Distance, RGBSpatialDistance ,Intensity, TextureAndIntensity;
 }
