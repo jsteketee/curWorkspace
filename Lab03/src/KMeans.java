@@ -1,5 +1,4 @@
 import java.util.Random;
-import java.util.jar.Attributes;
 
 public class KMeans {
 
@@ -36,9 +35,20 @@ public class KMeans {
 		K = numClasses;
 		means = new Characteristic[K];
 		pixelProperties = new Characteristic[numRows][numCols];
-		if (type.equals(KMeansType.RGB_Distance) || type.equals(KMeansType.RGBSpatialDistance))
+		switch (type) {
+		case RGB_DISTANCE:
 			numDimensions = 3;
-
+			break;
+		case RGB_AND_SPATIAL:
+			numDimensions = 5;
+			break;
+		case INTENSITY_AND_TEXTURE:
+			numDimensions = 2;
+			break;
+		case INTENSITY:
+			numDimensions = 1;
+			break;
+		}
 	}
 
 	/**

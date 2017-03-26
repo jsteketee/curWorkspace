@@ -87,20 +87,32 @@ public class Characteristic {
 		return sumOfSquares / maxDistance;
 	}
 
-	private double RGBSpatialDistance(Characteristic c2, int r, int c, int maxr, int maxc) {
-		double RGBDistance = RGBDistance(c2);
-		double NormSpatialDistance = ()
-		
-		
+	private double RGBSpatialDistance(Characteristic c2, int maxr, int maxc) {
+		double difference;
+		double sumOfSquares = 0;
+		for (int i = 0; i < this.attributes.length; i++) {
+			difference = (this.attributes[i] - c2.attributes[i]);
+			sumOfSquares += difference * difference;
+		}
+		sumOfSquares += .2 * ((this.attributes[3] - c2.attributes[3]) * (this.attributes[3] - c2.attributes[3]))
+				+ .2 * ((this.attributes[4] - c2.attributes[4]) * (this.attributes[4] - c2.attributes[4]));
+
+		sumOfSquares = sumOfSquares / 7;
+		return sumOfSquares;
 	}
 
 	public double Distance(int r, int c, int maxr, int maxc, Characteristic c2, KMeansType type) {
-		if (type.equals(KMeansType.RGB_Distance))
+		switch (type) {
+		case RGB_DISTANCE:
 			return RGBDistance(c2);
-		if (type.equals(KMeansType.RGBSpatialDistance))
+		case RGB_AND_SPATIAL:
 			return RGBSpatialDistance(c2, maxr, maxc);
-		else
-			return 0;
+		case INTENSITY_AND_TEXTURE:
+			return RGBDistance(c2);
+		case INTENSITY:
+			return (RGBDistance(c2));
+		}
+		return 0;
 	}
 
 }
