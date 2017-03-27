@@ -10,7 +10,8 @@ import java.io.IOException;
 public class ClusterImage {
 
 	static Color[] colors = new Color[] { Color.blue, Color.cyan, Color.darkGray, Color.gray, Color.green,
-			Color.magenta, Color.orange, Color.pink, Color.red, Color.white, Color.black, Color.yellow };
+			Color.magenta, Color.orange, Color.pink, Color.red, Color.white, Color.black, Color.yellow, Color.BLUE,
+			Color.GREEN, Color.MAGENTA, Color.ORANGE, Color.RED };
 	static RGBImage inputImg;
 	static KMeans km;
 	static String imageName;
@@ -21,7 +22,7 @@ public class ClusterImage {
 		imageName = args[0];
 		K = Integer.parseInt(args[1]);
 		KMeansType type = KMeansType.values()[Integer.parseInt(args[2])];
-		if (K > 12 && type.equals(KMeansType.INTENSITY_AND_TEXTURE))
+		if (K > colors.length && type.equals(KMeansType.INTENSITY_AND_TEXTURE))
 			throw new IllegalArgumentException("Not enough colors to show that many classes");
 
 		inputImg = new RGBImage(imageName);
@@ -149,7 +150,6 @@ public class ClusterImage {
 				for (int c = 0; c < inputImg.getNumCols(); c++) {
 					classNum = pixelClasses[r][c].getClassNumber();
 					int averageVal = (int) (means[classNum].getVal(0) * 255.0);
-					System.out.println(averageVal);
 					inputImg.setPixel(r, c, averageVal, averageVal, averageVal);
 				}
 			}

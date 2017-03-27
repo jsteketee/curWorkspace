@@ -76,7 +76,7 @@ public class Characteristic {
 	 * @param c2 The pixel being compared to this.
 	 * @return the normalized distance.
 	 */
-	private double RGBDistance(Characteristic c2) {
+	public double RGBDistance(Characteristic c2) {
 		double maxDistance = this.attributes.length;
 		double difference;
 		double sumOfSquares = 0;
