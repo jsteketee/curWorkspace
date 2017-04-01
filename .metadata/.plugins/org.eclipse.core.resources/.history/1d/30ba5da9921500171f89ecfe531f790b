@@ -1,0 +1,32 @@
+import java.io.IOException;
+
+public class SubstractImage {
+
+	public static void main(String[] args) throws IOException {
+
+		// Subtracts image a from image b
+		// Image dimensions must be equal.
+
+		RGBImage imageA = new RGBImage(args[0]);
+		//RGBImage imageB = new RGBImage(args[1]);
+		
+		int rows = imageA.getNumRows();
+		int cols = imageA.getNumCols();
+		
+		RGBImage output = new RGBImage(rows, cols);
+		output.writeImage("Black_Image.jpg");
+		
+		for (int r = 0; r < cols; r++) {
+			for (int c = 0; c < rows; c++) {
+				output.setPixel(r, c, 255,255,255);
+				
+				
+				
+				
+			}
+		}
+		output.writeImage("White_Image.jpg");
+		
+	}
+
+}

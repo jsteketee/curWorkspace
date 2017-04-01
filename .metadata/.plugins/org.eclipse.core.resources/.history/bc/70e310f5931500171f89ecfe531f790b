@@ -1,0 +1,27 @@
+import java.io.IOException;
+
+public class SubstractImage {
+
+	public static void main(String[] args) throws IOException {
+		RGBImage inputImage = new RGBImage(args[0]);
+		RGBImage subtractFrom = new RGBImage(inputImage.getHeight(),inputImage.getWidth());
+		RGBImage whiteMinusInput = new RGBImage(inputImage.getHeight(),inputImage.getWidth());
+		
+		for (int r = 0; r < inputImage.getHeight(); r++) {
+			for (int c = 0; c < inputImage.getNumCols(); c++) {
+				whiteImage.setPixel(r, c, 255,255,255);
+			}
+		}
+		
+		for (int r = 0; r < inputImage.getHeight(); r++) {
+			for (int c = 0; c < inputImage.getNumCols(); c++) {
+				blackImage.setPixel(r, c, 0,0,0);
+				whiteImage.setPixel(r, c, 255,255,255);
+			}
+		}
+		
+		blackImage.writeImage("blackImage.jpg");
+		blac
+	}
+
+}

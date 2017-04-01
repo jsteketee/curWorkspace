@@ -1,0 +1,11 @@
+import java.io.IOException;
+
+public class SubstractImage {
+
+	public static void main(String[] args) throws IOException {
+		RGBImage inputImage = new RGBImage(args[0]);
+		RGBImage blackImage = new RGBImage(inputImage.getHeight(),inputImage.getWidth());
+		inputImage.writeImage("blackImage.jpg");
+	}
+
+}

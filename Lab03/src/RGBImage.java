@@ -53,6 +53,11 @@ public class RGBImage {
 	 */
 	public RGBImage(int height, int width) {
 		pic = new RGBPixel[height][width];
+		for (int r = 0; r < height; r++) {
+			for (int c = 0; c < width; c++) {
+				pic[r][c] = new RGBPixel(0,0,0);
+			}
+		}
 	}
 
 	/**

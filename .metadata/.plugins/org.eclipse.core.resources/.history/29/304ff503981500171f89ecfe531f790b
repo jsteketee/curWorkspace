@@ -1,0 +1,21 @@
+import java.io.IOException;
+
+public class SubstractImage {
+
+	public static void main(String[] args) throws IOException {
+		RGBImage inputImage = new RGBImage(args[0]);
+		RGBImage subtractFrom = new RGBImage(args[1]);
+		RGBImage difference = new RGBImage(inputImage.getHeight(),inputImage.getWidth());
+		
+		RGBPixel curPixel; 
+		for (int r = 0; r < inputImage.getHeight(); r++) {
+			for (int c = 0; c < inputImage.getNumCols(); c++) {
+				curPixel = inputImage.getPixel(r, c);
+				difference.setPixel(r, c, 255-curPixel.getRed(), 255-curPixel.getBlue(), 255-curPixel.getGreen());
+			}
+		}
+		
+		difference.writeImage("difference.jpg");
+	}
+
+}
