@@ -1,0 +1,47 @@
+import java.io.FileNotFoundException;
+
+public class AlgorithmTester {
+
+	final static int BackpackCapacity = 15;
+	final static int NUM_OF_INSTANCES = 100;
+	final static int ELEMENTS_PER_INSTANCE = 50;
+	final static int MAX_VALUE = 25;
+	final static int MAX_WEIGHT = 5;
+
+	static Itemset[] itemsets = new Itemset[NUM_OF_INSTANCES];
+
+	public static void main(String[] args) throws FileNotFoundException {
+		if (!loadItemSets())
+			generateItemSets();
+
+		Itemset testSet;
+		for (int i = 0; i < 1; i++) {
+			testSet = itemsets[i];
+			System.out.println("Algorithm NW, id: " + testSet.id + ", maxValue: " + AlgorithmNW.solve(testSet, BackpackCapacity));
+			System.out.println("Algorithm NNV, id: " + testSet.id + ", maxValue: " + AlgorithmNNV.solve(testSet, BackpackCapacity));
+		}
+	}
+
+	private static void generateItemSets() throws FileNotFoundException {
+		Itemset set;
+		for (int i = 0; i < NUM_OF_INSTANCES; i++) {
+			set = new Itemset(i + 1, ELEMENTS_PER_INSTANCE, MAX_VALUE, MAX_WEIGHT);
+			set.write();
+			itemsets[i] = set;
+		}
+	}
+
+	private static boolean loadItemSets() {
+		Itemset set;
+		for (int i = 0; i < NUM_OF_INSTANCES; i++) {
+			try {
+
+				set = new Itemset("ItemSet" + (i + 1) + ".txt");
+			} catch (FileNotFoundException e) {
+				return false;
+			}
+			itemsets[i] = set;
+		}
+		return true;
+	}
+}

@@ -1,0 +1,83 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Random;
+import java.util.Scanner;
+
+public class Itemset {
+
+	int id;
+	Item[] items;
+	static Comparator<Item> compareVals;
+	static Comparator<Item> compareWeights;
+
+	static {
+		compareVals = new Comparator<Item>() {
+			@Override
+			public int compare(Item o1, Item o2) {
+				return Integer.compare(o1.value, o2.value);
+			}
+		};
+		compareWeights = new Comparator<Item>() {
+			public int compare(Item o1, Item o2) {
+				return Integer.compare(o1.weight, o2.weight);
+			}
+		};
+	}
+
+	/**
+	 * Reads an input file to generate an itemset. Format is {id n v1 c1 v2 c2
+	 * v3 c3 ... vn cn }
+	 * 
+	 * @param fileName
+	 * @throws FileNotFoundException
+	 */
+	public Itemset(String fileName) throws FileNotFoundException {
+		Scanner sc = new Scanner(new File(fileName));
+		this.id = sc.nextInt();
+		int n = sc.nextInt();
+		items = new Item[n];
+		for (Item i : items) {
+			i = new Item(sc.nextInt(), sc.nextInt());
+		}
+		if (sc.hasNext()) {
+			System.out.println("Incorrect File Format");
+		}
+	}
+
+	/**
+	 * Creates a random item set.
+	 * 
+	 * @param size number of items
+	 * @param maxVal maximum item value
+	 * @param maxWeight maximum item weight
+	 */
+	public Itemset(int id, int size, int maxVal, int maxWeight) {
+		this.id = id;
+		items = new Item[size];
+		Random rand = new Random();
+		for (int i = 0; i < size; i++) {
+			items[i] = new Item((int) (rand.nextDouble() * maxVal), (int) (rand.nextDouble() * maxWeight));
+		}
+	}
+
+	public void write() throws FileNotFoundException {
+		PrintWriter out = new PrintWriter("ItemSet" + this.id);
+		String output = this.id + " " + this.items.length + " ";
+		for (Item i : items) {
+			output += i.value + " " + i.weight + " ";
+		}
+		out.write(output);
+		out.close();
+	}
+
+	public void sortByWeights() {
+		Arrays.sort(items, compareVals);
+	}
+
+	public void sortByValues() {
+		Arrays.sort(items, compareWeights);
+	}
+}

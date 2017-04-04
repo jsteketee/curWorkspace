@@ -1,0 +1,17 @@
+
+/**
+ * Algorithm to solve 0-1 Knapsack using dynamic programming and approximation scheme. O(n^3*1/e). 
+ * 
+ * @author jstekete
+ *
+ */
+public class AlgorithmFPTAS {
+	static final double epsilon = 0.1;
+	public static int solve(Itemset itemset, int capacity) {
+		
+		
+		
+		
+		return 0;
+	}
+}

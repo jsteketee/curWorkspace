@@ -1,0 +1,27 @@
+import java.util.Comparator;
+
+public class Itemset {
+
+	Item[] items;
+	static Comparator<Item> compareVals;
+	static Comparator<Item> compareWeights;
+
+	static {
+		compareVals = new Comparator<Item>() {
+			@Override
+			public int compare(Item o1, Item o2) {
+				return Integer.compare(o1.value, o2.value);
+			}
+		};
+		compareWeights = new Comparator<Item>() {
+			public int compare(Item o1, Item o2) {
+				return Integer.compare(o1.weight, o2.weight);
+			}
+		};
+	}
+
+	public Itemset(String textFileName) {
+
+	}
+
+}

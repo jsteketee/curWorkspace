@@ -1,0 +1,9 @@
+public class Solution {
+	Itemset items;
+	int maxValue;
+
+	public Solution(Itemset items, int maxValue) {
+		this.items = items;
+		this.maxValue = maxValue;
+	}
+}

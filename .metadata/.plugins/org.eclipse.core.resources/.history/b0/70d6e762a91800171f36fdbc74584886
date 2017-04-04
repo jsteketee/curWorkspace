@@ -1,0 +1,23 @@
+
+
+/**
+ * Algorithm to solve 0-1 Knapsack using dynamic programming with value function V(i,W). 
+ * 
+ * @author jstekete
+ *
+ */
+public class AlgorithmNW {
+	
+	public static Solution solve(Itemset itemset, int capacity)
+	{
+		Item[] items = itemset.items;
+		
+		int[][] value = new int[items.length][capacity+1];
+		int[][] choice = new int[items.length][capacity+1];
+		
+		
+		
+		
+		return null;
+	}
+}

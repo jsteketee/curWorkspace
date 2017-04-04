@@ -1,0 +1,46 @@
+/**
+ * Solves 01 maximum knapsack instance in O(n^2V) time.
+ * 
+ * @author jstekete
+ *
+ */
+public class AlgorithmNNV {
+	public static int solve(Itemset itemset, int capacity) {
+
+		Item[] items = itemset.items;
+
+		int T = 0;
+		for (Item i : items)
+			T += i.value;
+
+		int[][] value = new int[items.length][T + 1];
+		Item curItem;
+		int take;
+		int skip;
+
+		for (int i = items.length - 1; i >= 0; i--) {
+			for (int t = 0; t < value[0].length; t++) {
+				curItem = items[i];
+				if (i == items.length - 1) {
+					if (curItem.value >= t)
+						value[i][t] = curItem.weight;
+					else
+						value[i][t] = Integer.MAX_VALUE;
+				} else {
+					take = value[i + 1][t - curItem.value] + curItem.weight;
+					skip = value[i + 1][t];
+					if (take > skip)
+						value[i][t] = take;
+					else
+						value[i][t] = skip;
+				}
+			}
+		}
+		/*
+		 * for (int i = 0; i <= items.length; i++) { for (int j = 0; j <
+		 * capacity + 1; j++) { System.out.print(value[i][j] + " "); }
+		 * System.out.println(); }
+		 */
+		return value[0][capacity];
+	}
+}

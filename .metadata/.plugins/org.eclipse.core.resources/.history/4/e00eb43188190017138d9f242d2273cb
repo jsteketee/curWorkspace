@@ -1,0 +1,27 @@
+/**
+ * Algorithm to solve 0-1 Knapsack using Greedy two approximation. 
+ * 
+ * @author jstekete
+ *
+ */
+public class AlgorithmGTwo {
+	public static int solve(Itemset itemset, int capacity) {
+		for(int i =0; i < itemset.items.length; i++){
+			if (itemset.items[i].weight > capacity)
+				itemset.items[i].value = 0; 
+		}
+		itemset.sortByRatio();
+		int weight = 0; 
+		int value = 0; 
+		
+		for(Item item: itemset.items){
+			if ( weight + item.weight > capacity)
+				break; 
+			weight += item.weight;
+			value +=item.value;
+		}
+		
+		
+		return value[0][capacity];
+	}
+}

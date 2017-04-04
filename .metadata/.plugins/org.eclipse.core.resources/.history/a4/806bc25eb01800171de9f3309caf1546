@@ -1,0 +1,11 @@
+public class Solution {
+	Item[] items;
+	int maxValue;
+	int id;
+
+	public Solution(int id, Item[] items, int maxValue) {
+		this.items = items;
+		this.maxValue = maxValue;
+		this.id = id;
+	}
+}

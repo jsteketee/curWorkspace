@@ -1,0 +1,12 @@
+
+/**
+ * Algorithm to solve 0-1 Knapsack using dynamic programming with value function V(i,W). 
+ * 
+ * @author jstekete
+ *
+ */
+public class AlgorithmNW {
+	
+	
+
+}

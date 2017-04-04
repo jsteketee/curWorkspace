@@ -1,0 +1,9 @@
+
+/**
+ * Algorithm to solve 0-1 Knapsack using dynamic programming V(i,W)
+ * @author jstekete
+ *
+ */
+public class AlgorithmNW {
+
+}

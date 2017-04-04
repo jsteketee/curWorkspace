@@ -1,0 +1,65 @@
+import java.io.FileNotFoundException;
+
+public class AlgorithmTester {
+
+	final static int BackpackCapacity = 30;
+	final static int NUM_OF_INSTANCES = 100;
+	final static int ELEMENTS_PER_INSTANCE = 50;
+	final static int MAX_VALUE = 300;
+	final static int MAX_WEIGHT = 20;
+
+	static Itemset[] itemsets = new Itemset[NUM_OF_INSTANCES];
+
+	public static void main(String[] args) throws FileNotFoundException {
+		// if (!loadItemSets())
+		generateItemSets();
+
+		Itemset testSet;
+
+		int[] solution = new int[3];
+		long[] totalTime = new long[3];
+		long start;
+		for (int i = 0; i < 25; i++) {
+			testSet = itemsets[i];
+			start = System.nanoTime();
+			solution[0] = AlgorithmNW.solve(testSet, BackpackCapacity);
+			totalTime[0] += System.nanoTime() - start;
+			start = System.nanoTime();
+			solution[1] = AlgorithmNNV.solve(testSet, BackpackCapacity);
+			totalTime[1] += System.nanoTime() - start;
+			start = System.nanoTime();
+			solution[2] = AlgorithmFPTAS.solve(testSet, BackpackCapacity);
+			totalTime[2] += System.nanoTime() - start;
+			System.out.println("Algorithm NW    , id: " + testSet.id + ", maxValue: " + a1);
+			System.out.println("Algorithm NNV   , id: " + testSet.id + ", maxValue: " + a2);
+			System.out.println("Algorithm FPTAS , id: " + testSet.id + ", maxValue: " + a3);
+			if (a1 != a2)
+				System.out.println("Uhoh===================================");
+			if (a3 < 0.9 * a2 || a3 > 1.1 * a2)
+				System.out.println("Uhoh===================================");
+		}
+	}
+
+	private static void generateItemSets() throws FileNotFoundException {
+		Itemset set;
+		for (int i = 0; i < NUM_OF_INSTANCES; i++) {
+			set = new Itemset(i + 1, ELEMENTS_PER_INSTANCE, MAX_VALUE, MAX_WEIGHT);
+			set.write();
+			itemsets[i] = set;
+		}
+	}
+
+	private static boolean loadItemSets() {
+		Itemset set;
+		for (int i = 0; i < NUM_OF_INSTANCES; i++) {
+			try {
+
+				set = new Itemset("ItemSet" + (i + 1) + ".txt");
+			} catch (FileNotFoundException e) {
+				return false;
+			}
+			itemsets[i] = set;
+		}
+		return true;
+	}
+}

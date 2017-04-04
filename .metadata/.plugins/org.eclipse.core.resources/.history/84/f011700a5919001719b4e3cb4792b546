@@ -1,0 +1,48 @@
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
+/**
+ * Algorithm to solve 0-1 Knapsack using dynamic programming with value function
+ * V(i,W).
+ * 
+ * @author jstekete
+ *
+ */
+public class AlgorithmNW {
+	public static int solve(Itemset itemset, int capacity) {
+		Item[] items = itemset.items;
+		int[][] value = new int[items.length + 1][capacity + 1];
+		Item curItem;
+		int take;
+		int skip;
+		for (int i = items.length - 1; i >= 0; i--) {
+			for (int w = 0; w < value[0].length; w++) {
+				curItem = items[i];
+
+				if (w - curItem.weight < 0)
+					take = Integer.MIN_VALUE;
+				else
+					take = curItem.value + value[i + 1][w - curItem.weight];
+
+				skip = value[i + 1][w];
+
+				if (take > skip) {
+					value[i][w] = take;
+					choice[i][w] = true;
+				} else {
+					value[i][w] = skip;
+					choice[i][w] = false;
+				}
+			}
+		}
+		for (int i = 0; i <= items.length; i++) {
+			for (int j = 0; j < capacity + 1; j++) {
+				System.out.print(value[i][j] + " ");
+			}
+			System.out.println();
+		}
+		int maxVal = value[0][capacity];
+
+		return maxVal;
+	}
+}
