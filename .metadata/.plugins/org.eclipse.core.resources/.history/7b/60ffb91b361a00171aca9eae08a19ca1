@@ -7,9 +7,9 @@
  */
 public class AlgorithmReduc {
 
-	
+	static final double EPSILON = 0.1;
 
-	public static boolean solve(ThreeSatInstance instance) {
+	public static int solve(Itemset itemset, int capacity) {
 	
 		return 0;
 	}

@@ -1,0 +1,17 @@
+
+public class ThreeSatInstance {
+	Clause[] clauses;
+	int numOfVars;
+	int numOfClauses;
+
+	public ThreeSatInstance(int numOfVars, int numOfClauses, Clause[] clauses) {
+		this.clauses = clauses;
+		this.numOfClauses = numOfClauses;
+		this.numOfVars = numOfVars;
+	}
+	
+	public ThreeSatInstance(int numOfVars, int numOfClauses){
+		this.numOfVars=numOfVars;
+		this.numOfClauses=numOfClauses;
+	}
+}

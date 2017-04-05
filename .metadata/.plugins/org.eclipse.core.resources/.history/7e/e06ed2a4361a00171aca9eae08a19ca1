@@ -9,7 +9,7 @@ public class AlgorithmReduc {
 
 	
 
-	public static boolean solve(ThreeSatInstance instance) {
+	public static boolean solve(Itemset itemset, int capacity) {
 	
 		return 0;
 	}
